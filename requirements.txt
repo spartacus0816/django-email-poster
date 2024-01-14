@@ -1,3 +1,1 @@
-Django==4.2.*
-asgiref
-sqlparse
+django==4.2
