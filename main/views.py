@@ -11,12 +11,12 @@ def contactme(request):
     form = ClientForm(request.POST or None)
     if form.is_valid():
         form.save()
-        send_mail(
-            "this email contains information about registered users", 
-            f"this user {form['username'].value()} was susccessfully registed into the database.",
-            "wealthyonlinecoachig@gmail.com",
-            ["marwane.rako@gmail.com"], 
-        )
+        #send_mail(
+         #   "this email contains information about registered users", 
+          #  f"this user {form['username'].value()} was susccessfully registed into the database.",
+           # "wealthyonlinecoachig@gmail.com",
+            #["marwane.rako@gmail.com"], 
+        # )
         return redirect('home')
     context = {}
     context["form"] = form
