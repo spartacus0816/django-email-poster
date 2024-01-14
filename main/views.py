@@ -26,7 +26,7 @@ def contactme(request):
 def thankyou(request):
     form = ClienThankyouForm(request.POST or None)
     if form.is_valid():
-        try:
+        if client.objects.filter(field_name=value).exists():
             userclient = Client.objects.get(username=form["username"].value())
             userid = userclient.id
             
@@ -37,9 +37,17 @@ def thankyou(request):
                 [form["email"].value(),], 
             )
             return redirect('home')
-        
-        except Client.DoesNotExist:
-            form.add_error("Matching User doesnt exist")
+        else:
+            form.save()
+            userclient = Client.objects.get(username=form["username"].value())
+            userid = userclient.id
+            send_mail(
+                "Email subject is here", 
+                thankyoumsg(form['first_name'].value(), form['last_name'].value(), form['username'].value(), userid ,form['phone_number'].value()),
+                "wealthyonlinecoachig@gmail.com",
+                [form["email"].value(),], 
+            )
+            return redirect('home')
             
     context = {}
     context["form"] = form
