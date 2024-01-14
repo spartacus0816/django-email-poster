@@ -22,7 +22,7 @@ def contactme(request):
     context["form"] = form
     return render(request, "contact.html", context)
 
-@login_required(login_url="/")
+@login_required
 def thankyou(request):
     form = ClienThankyouForm(request.POST or None)
     if form.is_valid():
