@@ -27,23 +27,23 @@ def thankyou(request):
     form = ClienThankyouForm(request.POST or None)
     if form.is_valid():
         if Client.objects.filter(field_name=value).exists():
-            userclient = Client.objects.get(username=form["username"].value())
+            userclient = Client.objects.get(username=form.cleaned_data["username"])
             userid = userclient.id
             
             send_mail(
                 "Email subject is here", 
-                thankyoumsg(form['first_name'].value(), form['last_name'].value(), form['username'].value(), userid ,form['phone_number'].value()),
+                thankyoumsg(form.cleaned_data['first_name'], form.cleaned_data['last_name'], form.cleaned_data['username'], userid ,form.cleaned_data['phone_number']),
                 "wealthyonlinecoachig@gmail.com",
                 [form["email"].value(),], 
             )
             return redirect('home')
         else:
             form.save()
-            userclient = Client.objects.get(username=form["username"].value())
+            userclient = Client.objects.get(username=form.cleaned_data["username"])
             userid = userclient.id
             send_mail(
                 "Email subject is here", 
-                thankyoumsg(form['first_name'].value(), form['last_name'].value(), form['username'].value(), userid ,form['phone_number'].value()),
+                thankyoumsg(form.cleaned_data['first_name'], form.cleaned_data['last_name'], form.cleaned_data['username'], userid ,form.cleaned_data['phone_number']),
                 "wealthyonlinecoachig@gmail.com",
                 [form["email"].value(),], 
             )
