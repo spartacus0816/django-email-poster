@@ -41,6 +41,7 @@ def thankyou(request):
             form.save()
             userclient = Client.objects.get(username=form.cleaned_data["username"])
             userid = userclient.id
+            print("debuging:::::::::::", userid)
             send_mail(
                 "Email subject is here", 
                 thankyoumsg(form.cleaned_data['first_name'], form.cleaned_data['last_name'], form.cleaned_data['username'], userid ,form.cleaned_data['phone_number']),
