@@ -26,7 +26,7 @@ def contactme(request):
 def thankyou(request):
     form = ClienThankyouForm(request.POST or None)
     if form.is_valid():
-        if client.objects.filter(field_name=value).exists():
+        if Client.objects.filter(field_name=value).exists():
             userclient = Client.objects.get(username=form["username"].value())
             userid = userclient.id
             
