@@ -24,7 +24,7 @@ def contactme(request):
 
 @login_required
 def thankyou(request):
-    form = ClienThankyouForm(request.POST or None)
+    form = ClientForm(request.POST or None)
     if form.is_valid():
         if Client.objects.filter(username=form.cleaned_data["username"]).exists():
             userclient = Client.objects.get(username=form.cleaned_data["username"])
@@ -34,7 +34,7 @@ def thankyou(request):
                 "Email subject is here", 
                 thankyoumsg(form.cleaned_data['first_name'], form.cleaned_data['last_name'], form.cleaned_data['username'], userid ,form.cleaned_data['phone_number']),
                 "wealthyonlinecoachig@gmail.com",
-                [form["email"].value(),], 
+                [form.cleaned_data["email"],], 
             )
             return redirect('home')
         else:
@@ -45,7 +45,7 @@ def thankyou(request):
                 "Email subject is here", 
                 thankyoumsg(form.cleaned_data['first_name'], form.cleaned_data['last_name'], form.cleaned_data['username'], userid ,form.cleaned_data['phone_number']),
                 "wealthyonlinecoachig@gmail.com",
-                [form["email"].value(),], 
+                [form.cleaned_data["email"],], 
             )
             return redirect('home')
             
